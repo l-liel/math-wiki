@@ -1,8 +1,7 @@
 ---
-title: Incomplete Proof of Riemann Hypothesis
+title: Wiki Guide
 draft: true
 ---
-
 # Obsidian + Quartz Math Wiki Reference Guide
 
 ## 1. Essential Terminal Commands

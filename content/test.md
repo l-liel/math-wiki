@@ -2,8 +2,8 @@
 aliases:
   - IVT
   - Bolzano's Theorem
+title: Test Page
 ---
-
 # Intermediate Value Theorem# Fundamental Theorem of Calculus
 
 > [!abstract] Theorem
