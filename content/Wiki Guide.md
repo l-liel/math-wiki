@@ -1,0 +1,96 @@
+---
+title: Incomplete Proof of Riemann Hypothesis
+draft: true
+---
+
+# Obsidian + Quartz Math Wiki Reference Guide
+
+## 1. Essential Terminal Commands
+
+| Command | Purpose |
+| :--- | :--- |
+| `npx quartz sync --no-pull` | **Primary Sync:** Commits local notes and pushes directly to GitHub without pulling upstream template updates. |
+| `npx quartz build --serve` | **Local Preview:** Starts local server at `http://localhost:8080` to test KaTeX math and links before publishing. |
+| `git status` | **Status Check:** Displays modified, untracked, or staged files. |
+| `git add .` | **Stage Files:** Prepares all local edits for Git commit. |
+| `git commit -m "msg"` | **Save Snapshot:** Creates a local commit with a descriptive message. |
+| `git push` | **Push to Remote:** Uploads commits to GitHub, triggering the deployment action. |
+
+---
+
+## 2. Deployment Configuration (`.github/workflows/deploy.yml`)
+
+Save to `math-wiki/.github/workflows/deploy.yml`:
+
+```yaml
+name: Deploy Quartz site to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Cache dependencies
+        uses: actions/cache@v5
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Cache Quartz plugins
+        uses: actions/cache@v5
+        with:
+          path: .quartz/plugins
+          key: ${{ runner.os }}-plugins-${{ hashFiles('quartz.lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-plugins-
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Install Quartz plugins
+        run: npx quartz plugin install
+
+      - name: Build Quartz
+        run: npx quartz build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+  deploy:
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
