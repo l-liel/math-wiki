@@ -6,14 +6,14 @@ draft: true
 
 ## 1. Essential Terminal Commands
 
-| Command | Purpose |
-| :--- | :--- |
-| `npx quartz sync --no-pull` | **Primary Sync:** Commits local notes and pushes directly to GitHub without pulling upstream template updates. |
-| `npx quartz build --serve` | **Local Preview:** Starts local server at `http://localhost:8080` to test KaTeX math and links before publishing. |
-| `git status` | **Status Check:** Displays modified, untracked, or staged files. |
-| `git add .` | **Stage Files:** Prepares all local edits for Git commit. |
-| `git commit -m "msg"` | **Save Snapshot:** Creates a local commit with a descriptive message. |
-| `git push` | **Push to Remote:** Uploads commits to GitHub, triggering the deployment action. |
+| Command                     | Purpose                                                                                                           |
+| :-------------------------- | :---------------------------------------------------------------------------------------------------------------- |
+| `npx quartz sync --no-pull` | **Primary Sync:** Commits local notes and pushes directly to GitHub without pulling upstream template updates.    |
+| `npx quartz build --serve`  | **Local Preview:** Starts local server at `http://localhost:8080` to test KaTeX math and links before publishing. |
+| `git status`                | **Status Check:** Displays modified, untracked, or staged files.                                                  |
+| `git add .`                 | **Stage Files:** Prepares all local edits for Git commit.                                                         |
+| `git commit -m "msg"`       | **Save Snapshot:** Creates a local commit with a descriptive message.                                             |
+| `git push`                  | **Push to Remote:** Uploads commits to GitHub, triggering the deployment action.                                  |
 
 ---
 

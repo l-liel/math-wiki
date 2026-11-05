@@ -108,7 +108,8 @@ $$
 $$
 A = \sum_{k=1}^{n} \boldsymbol{l}_k \boldsymbol{u}_k^\mathrm{T}
 $$
-%%$$
+%%
+$$
 A
 =
 \left[
